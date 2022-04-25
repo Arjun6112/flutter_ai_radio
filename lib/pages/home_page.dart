@@ -1,0 +1,52 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_ai_radio/utils/ai_util.dart';
+import 'package:velocity_x/velocity_x.dart';
+
+import '../models/radio.dart';
+
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  List<MyRadio> radios = [];
+  @override
+  void initState() {
+    super.initState();
+    // fetchRadios();
+  }
+
+  fetchRadios() async {
+    final radioJSON = await rootBundle.loadString("assets/radio.json");
+    radios = MyRadioList.fromJson(radioJSON).radios;
+    print(radios);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        drawer: Drawer(),
+        body: Stack(
+          children: [
+            VxAnimatedBox()
+                .size(context.screenWidth, context.screenHeight)
+                .withGradient(LinearGradient(
+                    colors: [AIColors.primaryColor1, AIColors.primaryColor2],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight))
+                .make(),
+            AppBar(
+              title: "AI Radio".text.xl4.bold.white.make().shimmer(
+                  primaryColor: Vx.purple500, secondaryColor: Vx.green300),
+              backgroundColor: Colors.transparent,
+              elevation: 0.0,
+              centerTitle: true,
+            ).h(100.0).p12()
+          ],
+        ));
+  }
+}

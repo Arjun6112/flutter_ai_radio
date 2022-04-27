@@ -1,7 +1,11 @@
+import 'dart:convert' show json;
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_ai_radio/utils/ai_util.dart';
 import 'package:velocity_x/velocity_x.dart';
+
+import 'package:flutter_ai_radio/utils/ai_util.dart';
 
 import '../models/radio.dart';
 
@@ -53,15 +57,48 @@ class _HomePageState extends State<HomePage> {
                 aspectRatio: 1.0,
                 enlargeCenterPage: true,
                 itemBuilder: (context, index) {
-                  // final rad = radios[index];
-                  return VxBox(child: ZStack([]))
+                  final rad = radios[index];
+                  return VxBox(
+                          child: ZStack([
+                    Positioned(
+                        top: 0.0,
+                        right: 0.0,
+                        child: VxBox(
+                                child: rad.category.text.uppercase.white
+                                    .make()
+                                    .px16())
+                            .height(40)
+                            .black
+                            .alignCenter
+                            .withRounded(value: 10.0)
+                            .make()),
+                    Align(
+                        alignment: Alignment.bottomCenter,
+                        child: VStack(
+                          [
+                            rad.name.text.xl3.white.bold.make(),
+                            5.heightBox,
+                            rad.tagline.text.sm.white.semiBold.make()
+                          ],
+                          crossAlignment: CrossAxisAlignment.center,
+                        )),
+                    Align(
+                        alignment: Alignment.center,
+                        child: [
+                          Icon(
+                            CupertinoIcons.play_circle,
+                            color: Colors.white,
+                          ),
+                          10.heightBox,
+                          "Double tap to play".text.gray300.make()
+                        ].vStack())
+                  ]))
                       .bgImage(DecorationImage(
-                          image: NetworkImage(
-                              "https://www.theknotnews.com/wp-content/uploads/2017/02/Fifty-Shades-Poster.jpg"),
-                          fit: BoxFit.cover))
+                          image: NetworkImage(rad.image), fit: BoxFit.cover))
                       .withRounded(value: 60.0)
                       .border(color: Colors.black, width: 2.5)
                       .make()
+                      .onInkDoubleTap(() {})
                       .p16()
                       .centered();
                 })

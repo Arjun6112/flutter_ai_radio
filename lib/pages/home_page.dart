@@ -17,13 +17,14 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    // fetchRadios();
+    fetchRadios();
   }
 
   fetchRadios() async {
     final radioJSON = await rootBundle.loadString("assets/radio.json");
     radios = MyRadioList.fromJson(radioJSON).radios;
     print(radios);
+    setState(() {});
   }
 
   @override
@@ -41,12 +42,31 @@ class _HomePageState extends State<HomePage> {
                 .make(),
             AppBar(
               title: "AI Radio".text.xl4.bold.white.make().shimmer(
-                  primaryColor: Vx.purple500, secondaryColor: Vx.green300),
+                  primaryColor: Vx.purple500,
+                  secondaryColor: Color.fromRGBO(134, 239, 172, 1)),
               backgroundColor: Colors.transparent,
               elevation: 0.0,
               centerTitle: true,
-            ).h(100.0).p12()
+            ).h(100.0).p12(),
+            VxSwiper.builder(
+                itemCount: radios.length,
+                aspectRatio: 1.0,
+                enlargeCenterPage: true,
+                itemBuilder: (context, index) {
+                  // final rad = radios[index];
+                  return VxBox(child: ZStack([]))
+                      .bgImage(DecorationImage(
+                          image: NetworkImage(
+                              "https://www.theknotnews.com/wp-content/uploads/2017/02/Fifty-Shades-Poster.jpg"),
+                          fit: BoxFit.cover))
+                      .withRounded(value: 60.0)
+                      .border(color: Colors.black, width: 2.5)
+                      .make()
+                      .p16()
+                      .centered();
+                })
           ],
+          fit: StackFit.expand,
         ));
   }
 }

@@ -126,7 +126,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         drawer: Drawer(
             child: Container(
-                color: _selectedColor ?? AIColors.primaryColor1,
+                color: _selectedColor,
                 child: radios != null
                     ? [
                         100.heightBox,

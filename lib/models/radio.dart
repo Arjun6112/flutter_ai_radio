@@ -25,9 +25,7 @@ class MyRadioList {
 
   factory MyRadioList.fromMap(Map<String, dynamic> map) {
     return MyRadioList(
-      radios: List<MyRadio>.from((map['radios'] as List<int>).map<MyRadio>(
-        (x) => MyRadio.fromMap(x as Map<String, dynamic>),
-      )),
+      radios: List<MyRadio>.from(map['radios']?.map((x) => MyRadio.fromMap(x))),
     );
   }
 
@@ -122,17 +120,17 @@ class MyRadio {
 
   factory MyRadio.fromMap(Map<String, dynamic> map) {
     return MyRadio(
-      id: map['id'] as int,
-      order: map['order'] as int,
-      name: map['name'] as String,
-      tagline: map['tagline'] as String,
-      color: map['color'] as String,
-      description: map['description'] as String,
-      url: map['url'] as String,
-      category: map['category'] as String,
-      icon: map['icon'] as String,
-      image: map['image'] as String,
-      lang: map['lang'] as String,
+      id: map['id'],
+      order: map['order'],
+      name: map['name'],
+      tagline: map['tagline'],
+      color: map['color'],
+      description: map['desc'],
+      url: map['url'],
+      category: map['category'],
+      icon: map['icon'],
+      image: map['image'],
+      lang: map['lang'],
     );
   }
 

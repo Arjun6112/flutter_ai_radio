@@ -36,6 +36,7 @@ dependencies:
   alan_voice: ^3.3.0
 
 dev_dependencies:
+  flutter_launcher_icons: ^0.9.2
   flutter_lints: ^1.0.0
   flutter_test:
     sdk: flutter
@@ -43,6 +44,11 @@ dev_dependencies:
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter.
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon/1024.png" 
 flutter:
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

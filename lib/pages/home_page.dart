@@ -19,9 +19,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late List<MyRadio> radios;
+  List<MyRadio> radios = [];
   late MyRadio _selectedRadio;
-  late Color _selectedColor;
+  late Color _selectedColor = Vx.randomColor;
   bool _isPlaying = false;
 
   final suggestions = [
@@ -110,14 +110,12 @@ class _HomePageState extends State<HomePage> {
     radios = MyRadioList.fromJson(radioJSON).radios;
     _selectedRadio = radios[0];
     _selectedColor = Color(int.parse(radios[0].color));
-    // print(radios);
     setState(() {});
   }
 
   _playMusic(String url) {
     _audioPlayer.play(url);
     _selectedRadio = radios.firstWhere((element) => element.url == url);
-    print(_selectedRadio.name);
     setState(() {});
   }
 
@@ -127,7 +125,7 @@ class _HomePageState extends State<HomePage> {
         drawer: Drawer(
             child: Container(
                 color: _selectedColor,
-                child: radios != null
+                child: !radios.isEmpty
                     ? [
                         100.heightBox,
                         "All Channels".text.xl.white.semiBold.make().px16(),
@@ -144,7 +142,10 @@ class _HomePageState extends State<HomePage> {
                                     subtitle: e.tagline.text.white.make(),
                                   ))
                               .toList(),
-                        ).expand()
+                        ).expand(),
+                        50.heightBox,
+                        "Made by Arjun ❤️".text.white.bold.make().px20(),
+                        10.heightBox,
                       ].vStack(crossAlignment: CrossAxisAlignment.start)
                     : const Offstage())),
         body: Stack(
@@ -184,7 +185,7 @@ class _HomePageState extends State<HomePage> {
                   })
             ].vStack(),
             30.heightBox,
-            radios != null
+            radios.isNotEmpty
                 ? VxSwiper.builder(
                     itemCount: radios.length,
                     aspectRatio: 1.0,
